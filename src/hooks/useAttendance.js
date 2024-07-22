@@ -36,7 +36,36 @@ export const useAttendance = () => {
     }
   };
 
-  return { markAttendance, isLoading, error };
+  const fetchAttendanceByDate = async (date) => {
+    setIsLoading(true);
+    setError(null);
+
+    const token = JSON.parse(localStorage.getItem('user')).token;
+
+    try {
+      const response = await fetch(`/api/attendance?date=${date}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      const json = await response.json();
+
+      if (!response.ok) {
+        throw new Error(json.error);
+      }
+
+      return json;
+    } catch (err) {
+      setError(err.message);
+      return [];
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { markAttendance, fetchAttendanceByDate, isLoading, error };
 };
 
 // Helper function to convert DataURI to Blob
