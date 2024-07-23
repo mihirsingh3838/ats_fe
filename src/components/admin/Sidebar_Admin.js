@@ -20,13 +20,13 @@ const AdminSidebar = () => {
   };
 
   return (
-    <div className="h-screen bg-indigo-950 p-4 flex flex-col items-center">
+    <div className="h-screen bg-indigo-300 p-4 flex flex-col items-center">
       <ul className="flex flex-col space-y-4">
         <li>
           <Link
             to="/admin-dashboard"
             onClick={() => handleSetActive("home")}
-            className={`p-2 text-gray-400 text-4xl ${
+            className={`p-2 text-black text-4xl ${
               activeLink === "home" ? "text-white rounded-lg" : ""
             }`}
           >
@@ -36,8 +36,8 @@ const AdminSidebar = () => {
         <li>
           <Link
             to="/signup"
-            onClick={() => handleSetActive("registration")}
-            className={`p-2 text-gray-400 text-4xl ${
+            onClick={() => handleSetActive("signup")}
+            className={`p-2 text-black text-4xl ${
               activeLink === "registration" ? "text-white rounded-lg" : ""
             }`}
           >
@@ -47,7 +47,7 @@ const AdminSidebar = () => {
         <li>
           <button
             onClick={handleOpenDataModal}
-            className={`p-2 text-gray-400 text-4xl ${
+            className={`p-2 text-black text-4xl ${
               activeLink === "data" ? "text-white rounded-lg" : ""
             }`}
           >

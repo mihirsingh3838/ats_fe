@@ -30,7 +30,7 @@ const Sidebar = () => {
           <ul className="flex flex-wrap">
             <li className="mx-2 md:mx-0 mb-4">
               <Link
-                to="/employee-dashboard"
+                to="/"
                 onClick={() => handleSetActive("home")}
                 className={`rounded-lg p-2 text-gray-400 text-4xl bg-transparent ${
                   activeLink === "home" ? "bg-gray-800 text-white" : ""

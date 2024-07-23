@@ -39,12 +39,12 @@ const Navbar = () => {
               >
                 Login
               </Link>
-              <Link
+              {/* <Link
                 to="/signup"
                 className="text-green-500 bg-white border border-green-500 px-4 py-2 rounded hover:bg-green-600 hover:text-white transition duration-300"
               >
                 Signup
-              </Link>
+              </Link> */}
             </div>
           )}
         </nav>
