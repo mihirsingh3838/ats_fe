@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { AiOutlineUser } from "react-icons/ai"; // Import the user icon
-import Modal from "./Modal";
+import Modal from "./Modal_Admin";
 
 const CardItem = (props) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="bg-gray-300 rounded-3xl p-5 mx-2 mb-2 md:w-4/12 w-full">
+    <div className="bg-gray-300 rounded-3xl p-5 mx-2  md:w-4/12 w-full">
       <div className="flex items-center justify-between">
         <div className="mx-3 bg-gray-500 p-4 rounded-lg">
           <AiOutlineUser className="text-white" size={24} /> {/* Use the user icon */}

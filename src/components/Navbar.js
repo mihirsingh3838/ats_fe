@@ -20,6 +20,9 @@ const Navbar = () => {
           {user && (
             <div className="flex items-center space-x-4">
               <span className="text-white">{user.email}</span>
+              {user.role === 'admin' && (
+                <Link to="/admin-dashboard" className="text-white"/>
+              )}
               <button
                 onClick={handleClick}
                 className="bg-white text-green-500 border border-green-500 px-4 py-2 rounded hover:bg-green-600 hover:text-white transition duration-300"
