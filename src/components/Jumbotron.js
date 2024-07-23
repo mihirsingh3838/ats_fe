@@ -1,12 +1,9 @@
 import React, { useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const Jumbotron = () => {
   const [showPopup, setShowPopup] = useState(false);
-  const employeeDetails = {
-    name: "@Employee_name",
-    email: "employee@example.com",
-    department: "HR",
-  };
+  const { user } = useAuthContext();
 
   const openPopup = () => {
     setShowPopup(true);
@@ -19,7 +16,7 @@ const Jumbotron = () => {
   return (
     <div className="flex bg-gray-100 items-center justify-between text-black-500 w-full md:p-[30px] p-2 rounded-lg relative">
       <div className="w-9/12 md:text-base text-sm">
-        Welcome {employeeDetails.name}, You can see your profile here!!!.
+        Welcome {user.email}, You can see your profile here!!!.
       </div>
       <div className="mx-2">
         <button
@@ -42,9 +39,9 @@ const Jumbotron = () => {
               </button>
             </div>
             <div className="mt-4">
-              <h2 className="text-lg font-bold">{employeeDetails.name}</h2>
-              <p className="text-sm text-gray-500">Email: {employeeDetails.email}</p>
-              <p className="text-sm text-gray-500">Department: {employeeDetails.department}</p>
+              <h2 className="text-lg font-bold">{user.email}</h2>
+              <p className="text-sm text-gray-500">Email: {user.email}</p>
+              <p className="text-sm text-gray-500">Department: BlueTown</p>
             </div>
           </div>
         </div>

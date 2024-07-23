@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+const OPENCAGE_API_KEY = '2d66206a8a4d43758bba066bc1a34471'; // Replace with your OpenCage API key
+
 export const useAttendance = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -65,7 +67,57 @@ export const useAttendance = () => {
     }
   };
 
-  return { markAttendance, fetchAttendanceByDate, isLoading, error };
+  const fetchAllAttendance = async () => {
+    setIsLoading(true);
+    setError(null);
+  
+    const token = JSON.parse(localStorage.getItem('user')).token;
+  
+    try {
+      const response = await fetch('/api/attendance/all', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+  
+      const json = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(json.error);
+      }
+  
+      // Assuming your API returns an array of attendance objects with date and timestamp
+      return json.map(attendance => ({
+        ...attendance,
+        date: new Date(attendance.date).toISOString(),
+        timestamp: new Date(attendance.timestamp).toISOString(),
+      }));
+    } catch (err) {
+      setError(err.message);
+      return [];
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const getLocationName = async (lat, lng) => {
+    try {
+      const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${OPENCAGE_API_KEY}`);
+      const data = await response.json();
+      
+      if (data.results.length > 0) {
+        return data.results[0].formatted;
+      } else {
+        throw new Error("No results found");
+      }
+    } catch (error) {
+      setError(error.message);
+      return "Unknown location";
+    }
+  };
+
+  return { markAttendance, fetchAttendanceByDate, fetchAllAttendance, getLocationName, isLoading, error };
 };
 
 // Helper function to convert DataURI to Blob

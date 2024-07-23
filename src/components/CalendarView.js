@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // Import the styles for the calendar
 import { useAttendance } from '../hooks/useAttendance';
@@ -8,7 +8,8 @@ const CalendarView = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [attendanceData, setAttendanceData] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const { fetchAttendanceByDate } = useAttendance();
+  const [locationNames, setLocationNames] = useState({});
+  const { fetchAttendanceByDate, getLocationName } = useAttendance();
 
   const handleDateClick = async (date) => {
     const formattedDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())).toISOString().split('T')[0];
@@ -18,6 +19,18 @@ const CalendarView = () => {
     setAttendanceData(data);
     setShowModal(true);
   };
+
+  useEffect(() => {
+    if (showModal && attendanceData.length > 0) {
+      attendanceData.forEach(async (attendance) => {
+        const locationKey = `${attendance.location.lat},${attendance.location.lng}`;
+        if (!locationNames[locationKey]) {
+          const locationName = await getLocationName(attendance.location.lat, attendance.location.lng);
+          setLocationNames((prev) => ({ ...prev, [locationKey]: locationName }));
+        }
+      });
+    }
+  }, [showModal, attendanceData]);
 
   const convertToIST = (timestamp) => {
     const date = new Date(timestamp);
@@ -44,6 +57,7 @@ const CalendarView = () => {
                 <p>Time: {convertToIST(attendance.timestamp)}</p>
                 <p>Latitude: {attendance.location.lat}</p>
                 <p>Longitude: {attendance.location.lng}</p>
+                <p>Location: {locationNames[`${attendance.location.lat},${attendance.location.lng}`] || "Loading..."}</p>
               </div>
             ))
           ) : (
