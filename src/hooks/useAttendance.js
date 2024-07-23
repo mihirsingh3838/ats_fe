@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-const OPENCAGE_API_KEY = '2d66206a8a4d43758bba066bc1a34471'; // Replace with your OpenCage API key
+
+const OPENCAGE_API_KEY= process.env.REACT_APP_OPENCAGE_API_KEY
 
 export const useAttendance = () => {
   const [error, setError] = useState(null);
