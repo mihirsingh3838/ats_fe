@@ -8,6 +8,8 @@ import Signup from "./pages/Signup";
 import Navbar from "./components/Navbar";
 import AdminDashboard from "./pages/AdminDashboard";
 import Footer from "./components/Footer";
+import RequestPasswordReset from "./pages/RequestPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   const { user } = useAuthContext();
@@ -51,6 +53,14 @@ function App() {
                   <Navigate to="/" />
                 )
               }
+            />
+            <Route
+              path="/request-password-reset"
+              element={!user ? <RequestPasswordReset /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/reset-password/:token"
+              element={!user ? <ResetPassword /> : <Navigate to="/" />}
             />
           </Routes>
         </div>

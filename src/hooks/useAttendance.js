@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 
 const OPENCAGE_API_KEY= process.env.REACT_APP_OPENCAGE_API_KEY
+const apiUrl = process.env.REACT_APP_API_URL || '';
 
 export const useAttendance = () => {
   const [error, setError] = useState(null);
@@ -19,7 +20,7 @@ export const useAttendance = () => {
     formData.append('userId', userId);
 
     try {
-      const response = await fetch('/api/attendance', {
+      const response = await fetch(`${apiUrl}/api/attendance`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -46,7 +47,7 @@ export const useAttendance = () => {
     const token = JSON.parse(localStorage.getItem('user')).token;
 
     try {
-      const response = await fetch(`/api/attendance?date=${date}`, {
+      const response = await fetch(`${apiUrl}/api/attendance?date=${date}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -75,7 +76,7 @@ export const useAttendance = () => {
     const token = JSON.parse(localStorage.getItem('user')).token;
   
     try {
-      const response = await fetch('/api/attendance/all', {
+      const response = await fetch(`${apiUrl}/api/attendance/all`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,

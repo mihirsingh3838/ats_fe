@@ -11,6 +11,10 @@ const Login = () => {
     await login(email, password);
   };
 
+  const handleForgotPassword = () => {
+    window.location.href = '/request-password-reset';
+  };
+
   return (
     <form className="login max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg" onSubmit={handleSubmit}>
       <h3 className="text-2xl font-semibold mb-4 text-center">Log In</h3>
@@ -36,6 +40,14 @@ const Login = () => {
         className={`w-full p-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition duration-300 ${isLoading && 'opacity-50 cursor-not-allowed'}`}
       >
         Log in
+      </button>
+      
+      <button
+        type="button"
+        onClick={handleForgotPassword}
+        className="w-full p-2 mt-4 text-green-500 text-center underline hover:text-green-700 transition duration-300"
+      >
+        Forgot Password?
       </button>
       
       {error && <div className="error mt-4 p-2 bg-red-100 text-red-700 border border-red-700 rounded-md">{error}</div>}
