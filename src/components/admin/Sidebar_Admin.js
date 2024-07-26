@@ -44,16 +44,6 @@ const AdminSidebar = () => {
             <FaUserPlus />
           </Link>
         </li>
-        <li>
-          <button
-            onClick={handleOpenDataModal}
-            className={`p-2 text-black text-4xl ${
-              activeLink === "data" ? "text-white rounded-lg" : ""
-            }`}
-          >
-            <FaDatabase />
-          </button>
-        </li>
       </ul>
       <ModalData isOpen={isDataModalOpen} onClose={handleCloseDataModal} />
     </div>

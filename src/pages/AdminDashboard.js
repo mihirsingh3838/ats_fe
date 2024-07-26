@@ -136,57 +136,56 @@ const AdminDashboard = () => {
   return (
     <div className="md:flex">
       <AdminSidebar />
-      <div className="flex flex-col w-full">
-        <div className="mb-5 w-full flex items-center">
-          
-        </div>
+      <div className="flex flex-col w-full p-4">
         <div className="mb-5 w-full">
           <AdminCards />
         </div>
-        <div className="flex md:mx-5 space-x-5">
-          <div className="md:w-1/3 lg:w-2/3 w-full mb-2">
-            <select
-              value={selectedState}
-              onChange={handleStateChange}
-              className="p-2 border rounded mr-4"
-            >
-              <option value="">Select State/UT</option>
-              {statesAndUTs.map(state => (
-                <option key={state} value={state}>{state}</option>
-              ))}
-            </select>
-            <DatePicker
-              selected={selectedDate}
-              onChange={handleDateChange}
-              dateFormat="yyyy-MM-dd"
-              className="p-2 border rounded"
-            />
-            <button onClick={() => downloadExcel(attendanceData, 'attendance_data')} className="mt-4 p-2 bg-yellow-500 text-white rounded">
-              Download Excel
-            </button>
-            <div className="mt-4">
+        <div className="flex flex-col md:flex-row md:mx-5 space-y-5 md:space-y-0 md:space-x-5">
+          <div className="md:w-1/3 lg:w-2/3 w-full mb-2 space-y-4">
+            <div className="flex flex-col space-y-4">
+              <select
+                value={selectedState}
+                onChange={handleStateChange}
+                className="p-2 border rounded"
+              >
+                <option value="">Select State/UT</option>
+                {statesAndUTs.map(state => (
+                  <option key={state} value={state}>{state}</option>
+                ))}
+              </select>
+              <DatePicker
+                selected={selectedDate}
+                onChange={handleDateChange}
+                dateFormat="yyyy-MM-dd"
+                className="p-2 border rounded"
+              />
+              <button onClick={() => downloadExcel(attendanceData, 'attendance_data')} className="p-2 bg-yellow-500 text-white rounded">
+                Download Excel
+              </button>
+            </div>
+            <div className="flex flex-col space-y-4 mt-4">
               <input
                 type="email"
                 value={searchEmail}
                 onChange={handleEmailChange}
                 placeholder="Enter email ID"
-                className="p-2 border rounded mr-4"
+                className="p-2 border rounded"
               />
-              <button onClick={fetchUserData} className="p-2 bg-blue-500 text-white rounded mr-4">
-                Search User
-              </button>
-              <button onClick={() => downloadExcel(userData, 'user_data')} className="p-2 bg-green-500 text-white rounded">
-                Download User Data
-              </button>
+              <div className="flex space-x-4">
+                <button onClick={fetchUserData} className="p-2 bg-blue-500 text-white rounded w-full">
+                  Search User
+                </button>
+                <button onClick={() => downloadExcel(userData, 'user_data')} className="p-2 bg-green-500 text-white rounded w-full">
+                  Download User Data
+                </button>
+              </div>
             </div>
             {error && <div className="mt-4 text-red-500">{error}</div>}
           </div>
-          <div className="md:w-1/2 lg:w-1.2/3 w-full mb-2">
+          <div className="md:w-1/2 lg:w-1/3 w-full mb-2">
             <WorldMapAdmin />
           </div>
-          
         </div>
-        
       </div>
     </div>
   );
