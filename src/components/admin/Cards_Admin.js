@@ -5,7 +5,6 @@ const AdminCards = () => {
   const cardData = [
     { title: "Active Employee", desc: "Full Time", additionalDetails: "Detailed information about active employees." },
     { title: "Interns", desc: "On Internship", additionalDetails: "Detailed information about interns." },
-    { title: "Team Lead", desc: "Manager", additionalDetails: "Detailed information about team leads." },
   ];
 
   return (
