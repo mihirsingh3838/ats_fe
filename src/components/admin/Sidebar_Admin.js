@@ -1,22 +1,12 @@
 import React, { useState } from "react";
-import { FaHome, FaUserPlus, FaDatabase } from "react-icons/fa";
+import { FaHome, FaUserPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import ModalData from "./Sidebar_Modal_Admin";
 
 const AdminSidebar = () => {
   const [activeLink, setActiveLink] = useState("home");
-  const [isDataModalOpen, setIsDataModalOpen] = useState(false);
 
   const handleSetActive = (link) => {
     setActiveLink(link);
-  };
-
-  const handleOpenDataModal = () => {
-    setIsDataModalOpen(true);
-  };
-
-  const handleCloseDataModal = () => {
-    setIsDataModalOpen(false);
   };
 
   return (
@@ -45,7 +35,6 @@ const AdminSidebar = () => {
           </Link>
         </li>
       </ul>
-      <ModalData isOpen={isDataModalOpen} onClose={handleCloseDataModal} />
     </div>
   );
 };

@@ -134,9 +134,9 @@ const AdminDashboard = () => {
   }, [selectedState, selectedDate]);
 
   return (
-    <div className="md:flex">
-      <AdminSidebar />
-      <div className="flex flex-col w-full p-4">
+    <div className="md:flex flex-wrap">
+      <AdminSidebar className="w-full md:w-1/4" />
+      <div className="flex flex-col w-full md:w-3/4 p-4">
         <div className="mb-5 w-full">
           <AdminCards />
         </div>
@@ -157,32 +157,40 @@ const AdminDashboard = () => {
                 selected={selectedDate}
                 onChange={handleDateChange}
                 dateFormat="yyyy-MM-dd"
-                className="p-2 border rounded"
+                className="p-2 border rounded w-full"
+                placeholderText="Select Date"
               />
-              <button onClick={() => downloadExcel(attendanceData, 'attendance_data')} className="p-2 bg-yellow-500 text-white rounded">
-                Download Excel
+              <button
+                onClick={() => downloadExcel(attendanceData, 'attendance_data')}
+                className="bg-yellow-400 text-white px-4 py-2 rounded hover:bg-yellow-700 transition duration-300 w-full"
+              >
+                Download State Data
               </button>
             </div>
-            <div className="flex flex-col space-y-4 mt-4">
+            <div className="mt-4 space-y-4">
               <input
                 type="email"
                 value={searchEmail}
                 onChange={handleEmailChange}
-                placeholder="Enter email ID"
-                className="p-2 border rounded"
+                placeholder="Enter registered email"
+                className="p-2 border rounded w-full"
               />
-              <div className="flex space-x-4">
-                <button onClick={fetchUserData} className="p-2 bg-blue-500 text-white rounded w-full">
-                  Search User
-                </button>
-                <button onClick={() => downloadExcel(userData, 'user_data')} className="p-2 bg-green-500 text-white rounded w-full">
-                  Download User Data
-                </button>
-              </div>
+              <button
+                onClick={fetchUserData}
+                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition duration-300 w-full"
+              >
+                Search User Data
+              </button>
+              {error && <div className="text-red-600">{error}</div>}
+              <button
+                onClick={() => downloadExcel(userData, 'user_data')}
+                className="bg-yellow-400 text-white px-4 py-2 rounded hover:bg-yellow-500 transition duration-300 w-full"
+              >
+                Download User Data
+              </button>
             </div>
-            {error && <div className="mt-4 text-red-500">{error}</div>}
           </div>
-          <div className="md:w-1/2 lg:w-1/3 w-full mb-2">
+          <div className="md:w-2/3 lg:w-1/3 w-full">
             <WorldMapAdmin />
           </div>
         </div>

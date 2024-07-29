@@ -9,6 +9,7 @@ const Camera = () => {
   const [location, setLocation] = useState({ lat: null, lng: null });
   const { markAttendance, isLoading, error } = useAttendance();
   const navigate = useNavigate();
+  const [isCameraOpen, setIsCameraOpen] = useState(true);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -50,45 +51,60 @@ const Camera = () => {
     }
   };
 
+  const handleClose = () => {
+    setIsCameraOpen(false);
+    if (webcamRef.current) {
+      webcamRef.current.video.srcObject.getTracks().forEach((track) => track.stop());
+    }
+  };
+
   return (
-    <div className="flex items-start bg-gray-200 p-4 rounded-lg">
-      {!imageSrc && (
-        <div className="flex flex-col items-center">
-          <Webcam
-            audio={false}
-            ref={webcamRef}
-            screenshotFormat="image/jpeg"
-            className="mb-4"
-          />
-          <button
-            onClick={captureImage}
-            className="bg-indigo-600 text-white p-2 rounded-lg"
-          >
-            Click
-          </button>
-        </div>
-      )}
-      {imageSrc && (
-        <div className="ml-4">
-          <h3>Captured Image:</h3>
-          <img src={imageSrc} alt="Captured" className="mt-2 rounded-lg" />
-          <button
-            onClick={handleSubmit}
-            className={`bg-red-600 text-white p-2 rounded-lg mt-4 ${
-              isLoading && "opacity-50 cursor-not-allowed"
-            }`}
-            disabled={isLoading}
-          >
-            {isLoading ? "Submitting..." : "Submit"}
-          </button>
-        </div>
-      )}
-      {error && (
-        <div className="error mt-4 p-2 bg-red-100 text-red-700 border border-red-700 rounded-md">
-          {error}
-        </div>
-      )}
-    </div>
+    isCameraOpen && (
+      <div className="flex flex-col items-start bg-gray-200 p-4 rounded-lg relative">
+        <button
+          onClick={handleClose}
+          className="absolute top-2 right-2 text-gray-700 hover:text-gray-900"
+        >
+          &times;
+        </button>
+        {!imageSrc && (
+          <div className="flex flex-col items-center">
+            <Webcam
+              audio={false}
+              ref={webcamRef}
+              screenshotFormat="image/jpeg"
+              className="mb-4"
+            />
+            <button
+              onClick={captureImage}
+              className="bg-indigo-600 text-white p-2 rounded-lg"
+            >
+              Click
+            </button>
+          </div>
+        )}
+        {imageSrc && (
+          <div className="ml-4">
+            <h3>Captured Image:</h3>
+            <img src={imageSrc} alt="Captured" className="mt-2 rounded-lg" />
+            <button
+              onClick={handleSubmit}
+              className={`bg-red-600 text-white p-2 rounded-lg mt-4 ${
+                isLoading && "opacity-50 cursor-not-allowed"
+              }`}
+              disabled={isLoading}
+            >
+              {isLoading ? "Submitting..." : "Submit"}
+            </button>
+          </div>
+        )}
+        {error && (
+          <div className="error mt-4 p-2 bg-red-100 text-red-700 border border-red-700 rounded-md">
+            {error}
+          </div>
+        )}
+      </div>
+    )
   );
 };
 

@@ -12,14 +12,14 @@ const Navbar = () => {
 
   return (
     <header className="bg-indigo-300 shadow-md">
-      <div className="container max-w-[1400px] mx-auto p-4 flex items-center justify-between">
-        <Link to="/" className="text-white text-2xl font-bold">
+      <div className="container max-w-[1400px] mx-auto p-4 flex flex-col md:flex-row items-center justify-between">
+        <Link to="/" className="text-white text-2xl font-bold mb-2 md:mb-0">
           <h1>BlueTown</h1>
         </Link>
         <nav className="flex items-center space-x-4">
           {user && (
-            <div className="flex items-center space-x-4">
-              <span className="text-white">{user.email}</span>
+            <div className="flex flex-col md:flex-row items-center space-x-0 md:space-x-4">
+              <span className="text-white mb-2 md:mb-0">{user.email}</span>
               {user.role === 'admin' && (
                 <Link to="/admin-dashboard" className="text-white"/>
               )}
@@ -39,12 +39,6 @@ const Navbar = () => {
               >
                 Login
               </Link>
-              {/* <Link
-                to="/signup"
-                className="text-green-500 bg-white border border-green-500 px-4 py-2 rounded hover:bg-green-600 hover:text-white transition duration-300"
-              >
-                Signup
-              </Link> */}
             </div>
           )}
         </nav>
