@@ -1,3 +1,4 @@
+import React from "react";
 import LineChart from "../components/Chart";
 import HorizentalGraph from "../components/HorizentalGraph";
 import Jumbotron from "../components/Jumbotron";
@@ -16,15 +17,13 @@ const Home = () => {
     <div className="home max-w-7xl mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
       <div className="md:flex">
         <Sidebar />
-        <div className="md:mx-5 mx-1">
-          <div className="md:flex">
-            <div>
-              <div className="md:w-[500px] lg:w-[750px] w-full mb-5">
-                <Jumbotron />
-                <LineChart />
-              </div>
+        <div className="md:mx-5 mx-1 w-full">
+          <div className="md:flex flex-wrap">
+            <div className="md:w-1/2 w-full mb-5">
+              <Jumbotron />
+              <LineChart />
             </div>
-            <div className="w-full">
+            <div className="md:w-1/2 w-full">
               <div className="mb-3 md:mb-[50px]">
                 <HorizentalGraph />
               </div>
@@ -38,4 +37,5 @@ const Home = () => {
     </div>
   );
 };
+
 export default Home;

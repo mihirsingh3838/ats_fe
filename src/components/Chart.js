@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { FaChartLine } from "react-icons/fa";
 import {
   Chart as ChartJS,
@@ -30,6 +30,7 @@ ChartJS.register(
 
 const options = {
   responsive: true,
+  maintainAspectRatio: false, // Added to maintain the aspect ratio properly
   plugins: {
     legend: {
       position: "top",
@@ -66,7 +67,7 @@ const options = {
         },
       },
       min: '08:00',
-      max: '12:00',
+      max: '18:00', // Adjust the max value based on your requirement
       title: {
         display: true,
         text: 'Time',
@@ -83,18 +84,31 @@ const options = {
 const LineChart = () => {
   const [attendanceData, setAttendanceData] = useState([]);
   const { fetchAllAttendance } = useAttendance();
+  const chartRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchAllAttendance();
       setAttendanceData(data.map(attendance => ({
-        x: attendance.date,
-        y: attendance.timestamp,
+        x: new Date(attendance.date), // Ensure x is a Date object
+        y: new Date(attendance.timestamp), // Ensure y is a Date object for time scale
       })));
     };
 
     fetchData();
   }, []); // Empty dependency array ensures this runs only once
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (chartRef.current) {
+        chartRef.current.resize();
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const data = {
     datasets: [
@@ -115,8 +129,8 @@ const LineChart = () => {
         <FaChartLine className="mr-2 text-blue-500" />
         <span className="text-gray-400 font-normal">Checkin Time</span>
       </div>
-      <div className="w-full">
-        <Line options={options} data={data} />
+      <div className="w-full h-[400px]"> {/* Set a fixed height to ensure it resizes properly */}
+        <Line ref={chartRef} options={options} data={data} />
       </div>
     </div>
   );

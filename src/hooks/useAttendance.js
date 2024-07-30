@@ -88,7 +88,7 @@ export const useAttendance = () => {
       if (!response.ok) {
         throw new Error(json.error);
       }
-  
+      //console.log("Fetched attendance data:", json);
       // Assuming your API returns an array of attendance objects with date and timestamp
       return json.map(attendance => ({
         ...attendance,
@@ -121,15 +121,3 @@ export const useAttendance = () => {
 
   return { markAttendance, fetchAttendanceByDate, fetchAllAttendance, getLocationName, isLoading, error };
 };
-
-// Helper function to convert DataURI to Blob
-// const dataURItoBlob = (dataURI) => {
-//   const byteString = atob(dataURI.split(',')[1]);
-//   const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-//   const ab = new ArrayBuffer(byteString.length);
-//   const ia = new Uint8Array(ab);
-//   for (let i = 0; i < byteString.length; i++) {
-//     ia[i] = byteString.charCodeAt(i);
-//   }
-//   return new Blob([ab], { type: mimeString });
-// };
