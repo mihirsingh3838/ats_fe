@@ -14,7 +14,7 @@ const Home = () => {
   }
 
   return (
-    <div className="home max-w-7xl mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
+    <div className="home mx-auto mt-10  bg-white  rounded-lg">
       <div className="md:flex">
         <Sidebar />
         <div className="md:mx-5 mx-1 w-full">

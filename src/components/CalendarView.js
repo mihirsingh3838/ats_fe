@@ -41,7 +41,7 @@ const CalendarView = () => {
   return (
     <>
       <div className="flex mx-2">
-        <div className="w-full flex flex-col items-center p-2 bg-white shadow-md rounded-md">
+        <div className="w-full flex flex-col items-center p-2 bg-white rounded-md">
           <Calendar className="w-full p-5" onClickDay={handleDateClick} />
         </div>
       </div>
