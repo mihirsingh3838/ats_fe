@@ -11,13 +11,13 @@ const Navbar = () => {
   };
 
   return (
-    <header className="bg-indigo-300 shadow-md">
+    <header className="bg-gray-800 shadow-md">
       <div className="container max-w-[1400px] mx-auto p-4 flex flex-col md:flex-row items-center justify-between">
         <Link to="/" className="text-white text-2xl font-bold mb-2 md:mb-0 flex items-center">
           <img
             src="./bluetown_logo.svg"
             alt="BlueTown Logo"
-            className="h-10 w-10 mr-2  border-2 border-white bg-white p-1"
+            className="h-12 w-12 mr-2 ml-4"
           />
           <h1>BlueTown</h1>
         </Link>

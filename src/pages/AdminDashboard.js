@@ -50,7 +50,7 @@ const AdminDashboard = () => {
       });
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
 
       if (response.ok) {
         setAttendanceData(data);
