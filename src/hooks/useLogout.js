@@ -1,15 +1,19 @@
-import { useAuthContext } from './useAuthContext'
+import { useAuthContext } from './useAuthContext';
+import { toast } from 'react-hot-toast';
 
 export const useLogout = () => {
-  const { dispatch } = useAuthContext()
+  const { dispatch } = useAuthContext();
 
   const logout = () => {
     // remove user from storage
-    localStorage.removeItem('user')
+    localStorage.removeItem('user');
 
     // dispatch logout action
-    dispatch({ type: 'LOGOUT' })
-  }
+    dispatch({ type: 'LOGOUT' });
 
-  return { logout }
-}
+    // show success notification
+    toast.success('Logged out successfully');
+  };
+
+  return { logout };
+};

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import AdminSidebar from "../components/admin/Sidebar_Admin";
 import AdminCards from "../components/admin/Cards_Admin";
 import WorldMapAdmin from "../components/admin/WorldMap_Admin";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import * as XLSX from 'xlsx';
+import { toast } from 'react-hot-toast';
 
 const apiUrl = process.env.REACT_APP_API_URL || '';
 
@@ -23,12 +24,13 @@ const AdminDashboard = () => {
   const [searchEmail, setSearchEmail] = useState("");
   const [userData, setUserData] = useState([]);
   const [error, setError] = useState('');
+  const [fetchingData, setFetchingData] = useState(false); // Added fetching state
 
   const handleStateChange = (e) => setSelectedState(e.target.value);
   const handleDateChange = (date) => setSelectedDate(date);
   const handleEmailChange = (e) => setSearchEmail(e.target.value);
 
-  const fetchAttendanceData = async () => {
+  const fetchAttendanceData = useCallback(async () => {
     if (selectedState && selectedDate) {
       const dateInIST = new Date(selectedDate);
       dateInIST.setMinutes(dateInIST.getMinutes() + 330); // Adding 330 minutes (5 hours and 30 minutes) to convert to IST
@@ -37,28 +39,37 @@ const AdminDashboard = () => {
       const token = user ? user.token : null; // Extract the token from the user object
 
       if (!token) {
-        console.error('No token found');
+        toast.error('No token found');
         return;
       }
 
-      const response = await fetch(`${apiUrl}/api/attendance/filtered?state=${selectedState}&date=${dateInIST.toISOString().split('T')[0]}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+      setFetchingData(true); // Set fetching state to true
+      try {
+        const response = await fetch(`${apiUrl}/api/attendance/filtered?state=${selectedState}&date=${dateInIST.toISOString().split('T')[0]}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          }
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setAttendanceData(data);
+          toast.success('Attendance data fetched successfully');
+        } else {
+          console.error('Failed to fetch attendance data:', data.error);
+          toast.error('Failed to fetch attendance data');
         }
-      });
-
-      const data = await response.json();
-      // console.log(data);
-
-      if (response.ok) {
-        setAttendanceData(data);
-      } else {
-        console.error('Failed to fetch attendance data:', data.error);
+      } catch (error) {
+        console.error('An error occurred:', error);
+        toast.error('An error occurred while fetching attendance data');
+      } finally {
+        setFetchingData(false); // Reset fetching state
       }
     }
-  };
+  }, [selectedState, selectedDate]);
 
   const fetchUserData = async () => {
     if (searchEmail) {
@@ -66,10 +77,11 @@ const AdminDashboard = () => {
       const token = user ? user.token : null; // Extract the token from the user object
 
       if (!token) {
-        console.error('No token found');
+        toast.error('No token found');
         return;
       }
 
+      setFetchingData(true); // Set fetching state to true
       try {
         const response = await fetch(`${apiUrl}/api/attendance/user?email=${searchEmail}`, {
           method: 'GET',
@@ -80,23 +92,28 @@ const AdminDashboard = () => {
         });
 
         const data = await response.json();
-        console.log(data);
 
         if (response.ok) {
           if (data.length === 0) {
             setError('User does not exist');
             setUserData([]);
+            toast.error('User does not exist');
           } else {
             setError('');
             setUserData(data);
+            toast.success('User data fetched successfully');
           }
         } else {
           console.error('Failed to fetch user data:', data.error);
           setError('An error occurred while fetching user data');
+          toast.error('Failed to fetch user data');
         }
       } catch (error) {
         console.error('An error occurred:', error);
         setError('An error occurred while fetching user data');
+        toast.error('An error occurred while fetching user data');
+      } finally {
+        setFetchingData(false); // Reset fetching state
       }
     }
   };
@@ -110,7 +127,7 @@ const AdminDashboard = () => {
 
   const downloadExcel = (data, fileName) => {
     if (data.length === 0) {
-      alert("No data to download");
+      toast.error("No data to download");
       return;
     }
 
@@ -127,11 +144,14 @@ const AdminDashboard = () => {
     XLSX.utils.book_append_sheet(wb, ws, 'Attendance Data');
 
     XLSX.writeFile(wb, `${fileName}.xlsx`);
+    toast.success(`${fileName} downloaded successfully`);
   };
 
   useEffect(() => {
-    fetchAttendanceData();
-  }, [selectedState, selectedDate]);
+    if (selectedState && selectedDate) {
+      fetchAttendanceData();
+    }
+  }, [fetchAttendanceData, selectedState, selectedDate]);
 
   return (
     <div className="md:flex flex-wrap">

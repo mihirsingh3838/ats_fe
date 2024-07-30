@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAuthContext } from './useAuthContext';
+import { toast } from 'react-hot-toast';
 
 export const useLogin = () => {
   const [error, setError] = useState(null);
@@ -10,6 +11,7 @@ export const useLogin = () => {
     setIsLoading(true);
     setError(null);
 
+    const toastId = toast.loading('Logging in...');
     const apiUrl = process.env.REACT_APP_API_URL || '';
     // Convert email to lowercase
     const formattedEmail = email.toLowerCase();
@@ -25,6 +27,7 @@ export const useLogin = () => {
     if (!response.ok) {
       setIsLoading(false);
       setError(json.error);
+      toast.error(json.error, { id: toastId });
     }
     if (response.ok) {
       // Save the user to local storage
@@ -35,6 +38,7 @@ export const useLogin = () => {
 
       // Update loading state
       setIsLoading(false);
+      toast.success('Login successful!', { id: toastId });
     }
   };
 

@@ -24,9 +24,11 @@ const Navbar = () => {
         <nav className="flex items-center space-x-4">
           {user && (
             <div className="flex flex-col md:flex-row items-center space-x-0 md:space-x-4">
-              <span className="text-white mb-2 md:mb-0">{user.email}</span>
+              {/* <span className="text-white mb-2 md:mb-0">{user.email}</span> */}
               {user.role === 'admin' && (
-                <Link to="/admin-dashboard" className="text-white"/>
+                <Link to="/admin-dashboard" className="text-white">
+                  Admin Dashboard
+                </Link>
               )}
               <button
                 onClick={handleClick}

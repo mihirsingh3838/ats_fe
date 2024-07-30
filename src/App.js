@@ -10,6 +10,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Footer from "./components/Footer";
 import RequestPasswordReset from "./pages/RequestPassword";
 import ResetPassword from "./pages/ResetPassword";
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const { user } = useAuthContext();
@@ -17,6 +18,7 @@ function App() {
   return (
     <div className="flex flex-col min-h-screen">
       <BrowserRouter>
+      <Toaster/>
         <Navbar />
         <div className="flex-grow">
           <Routes>

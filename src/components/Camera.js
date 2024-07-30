@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
 import { useAttendance } from "../hooks/useAttendance";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-hot-toast';
 
 const Camera = () => {
   const webcamRef = useRef(null);
@@ -30,8 +31,10 @@ const Camera = () => {
   }, []);
 
   const captureImage = () => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    setImageSrc(imageSrc);
+    if (webcamRef.current) {
+      const imageSrc = webcamRef.current.getScreenshot();
+      setImageSrc(imageSrc);
+    }
   };
 
   const handleSubmit = async () => {
@@ -41,19 +44,22 @@ const Camera = () => {
 
       // Reset image source and turn off the camera
       setImageSrc(null);
-      webcamRef.current.video.srcObject.getTracks().forEach((track) => track.stop());
+      if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
+        webcamRef.current.video.srcObject.getTracks().forEach((track) => track.stop());
+      }
 
       // Navigate to home page
+      toast.success("Attendance submitted successfully!");
       navigate("/");
     } catch (error) {
       console.error("Error submitting attendance:", error);
-      // Handle error state if necessary
+      toast.error(`Error: ${error.message}`);
     }
   };
 
   const handleClose = () => {
     setIsCameraOpen(false);
-    if (webcamRef.current) {
+    if (webcamRef.current && webcamRef.current.video && webcamRef.current.video.srcObject) {
       webcamRef.current.video.srcObject.getTracks().forEach((track) => track.stop());
     }
   };

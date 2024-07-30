@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 
 export const useSignup = () => {
   const [error, setError] = useState(null);
@@ -8,6 +9,7 @@ export const useSignup = () => {
     setIsLoading(true);
     setError(null);
 
+    const toastId = toast.loading('Signing up...');
     const apiUrl = process.env.REACT_APP_API_URL || '';
   
     const response = await fetch(`${apiUrl}/api/user/signup`, {
@@ -20,12 +22,14 @@ export const useSignup = () => {
     if (!response.ok) {
       setIsLoading(false);
       setError(json.error);
+      toast.error(json.error, { id: toastId });
       return false;
     }
   
     setIsLoading(false);
+    toast.success('Signup successful!', { id: toastId });
     return true;
-  };  
+  };
 
   return { signup, isLoading, error };
 };
