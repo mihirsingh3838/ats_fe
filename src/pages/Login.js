@@ -17,7 +17,7 @@ const Login = () => {
   };
 
   return (
-    <form className="login max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-lg" onSubmit={handleSubmit}>
+    <form className="login max-w-md mx-auto mt-10 p-6 bg-white rounded-lg" onSubmit={handleSubmit}>
       <h3 className="text-2xl font-semibold mb-4 text-center">Log In</h3>
       
       <label className="block text-gray-700 mb-2">Email address:</label>
