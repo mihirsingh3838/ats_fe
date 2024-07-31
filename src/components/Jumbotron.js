@@ -16,7 +16,7 @@ const Jumbotron = () => {
   return (
     <div className="flex bg-gray-100 items-center justify-between text-black-500 w-full md:p-[30px] p-2 rounded-lg relative">
       <div className="w-9/12 md:text-base text-sm">
-        Welcome {user.email}, You can see your profile here!!!.
+        Welcome {user.email}, You can see your profile here!!!
       </div>
       <div className="mx-2">
         <button
@@ -39,9 +39,11 @@ const Jumbotron = () => {
               </button>
             </div>
             <div className="mt-4">
-              <h2 className="text-lg font-bold">{user.email}</h2>
-              <p className="text-sm text-gray-500">Email: {user.email}</p>
-              <p className="text-sm text-gray-500">Department: BlueTown</p>
+              <h2 className="text-lg font-bold">{user.fullName}</h2>
+              <p className="text-sm text-gray-800">Email: {user.email}</p>
+              <p className="text-sm text-gray-800">Phone: {user.phoneNumber}</p>
+              <p className="text-sm text-gray-800">Reporting Manager: {user.reportingManager}</p>
+              <p className="text-sm text-gray-800">State: {user.state}</p>
             </div>
           </div>
         </div>

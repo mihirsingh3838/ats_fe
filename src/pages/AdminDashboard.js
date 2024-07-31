@@ -19,33 +19,38 @@ const statesAndUTs = [
 
 const AdminDashboard = () => {
   const [selectedState, setSelectedState] = useState("");
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [attendanceData, setAttendanceData] = useState([]);
   const [searchEmail, setSearchEmail] = useState("");
   const [userData, setUserData] = useState([]);
   const [error, setError] = useState('');
-  const [fetchingData, setFetchingData] = useState(false); // Added fetching state
+  const [fetchingData, setFetchingData] = useState(false);
 
   const handleStateChange = (e) => setSelectedState(e.target.value);
-  const handleDateChange = (date) => setSelectedDate(date);
+  const handleStartDateChange = (date) => setStartDate(date);
+  const handleEndDateChange = (date) => setEndDate(date);
   const handleEmailChange = (e) => setSearchEmail(e.target.value);
 
   const fetchAttendanceData = useCallback(async () => {
-    if (selectedState && selectedDate) {
-      const dateInIST = new Date(selectedDate);
-      dateInIST.setMinutes(dateInIST.getMinutes() + 330); // Adding 330 minutes (5 hours and 30 minutes) to convert to IST
+    if (selectedState && startDate) {
+      const startInIST = new Date(startDate);
+      startInIST.setMinutes(startInIST.getMinutes() + 330); // Convert to IST
 
-      const user = JSON.parse(localStorage.getItem('user')); // Get the user object from local storage
-      const token = user ? user.token : null; // Extract the token from the user object
+      const endInIST = endDate ? new Date(endDate) : new Date(startInIST);
+      endInIST.setMinutes(endInIST.getMinutes() + 330); // Convert to IST
+
+      const user = JSON.parse(localStorage.getItem('user')); // Get user from local storage
+      const token = user ? user.token : null; // Extract token from user object
 
       if (!token) {
         toast.error('No token found');
         return;
       }
 
-      setFetchingData(true); // Set fetching state to true
+      setFetchingData(true);
       try {
-        const response = await fetch(`${apiUrl}/api/attendance/filtered?state=${selectedState}&date=${dateInIST.toISOString().split('T')[0]}`, {
+        const response = await fetch(`${apiUrl}/api/attendance/filtered?state=${selectedState}&startDate=${startInIST.toISOString().split('T')[0]}&endDate=${endInIST.toISOString().split('T')[0]}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -66,22 +71,22 @@ const AdminDashboard = () => {
         console.error('An error occurred:', error);
         toast.error('An error occurred while fetching attendance data');
       } finally {
-        setFetchingData(false); // Reset fetching state
+        setFetchingData(false);
       }
     }
-  }, [selectedState, selectedDate]);
+  }, [selectedState, startDate, endDate]);
 
   const fetchUserData = async () => {
     if (searchEmail) {
-      const user = JSON.parse(localStorage.getItem('user')); // Get the user object from local storage
-      const token = user ? user.token : null; // Extract the token from the user object
+      const user = JSON.parse(localStorage.getItem('user')); // Get user from local storage
+      const token = user ? user.token : null; // Extract token from user object
 
       if (!token) {
         toast.error('No token found');
         return;
       }
 
-      setFetchingData(true); // Set fetching state to true
+      setFetchingData(true);
       try {
         const response = await fetch(`${apiUrl}/api/attendance/user?email=${searchEmail}`, {
           method: 'GET',
@@ -113,7 +118,7 @@ const AdminDashboard = () => {
         setError('An error occurred while fetching user data');
         toast.error('An error occurred while fetching user data');
       } finally {
-        setFetchingData(false); // Reset fetching state
+        setFetchingData(false);
       }
     }
   };
@@ -148,10 +153,10 @@ const AdminDashboard = () => {
   };
 
   useEffect(() => {
-    if (selectedState && selectedDate) {
+    if (selectedState && startDate) {
       fetchAttendanceData();
     }
-  }, [fetchAttendanceData, selectedState, selectedDate]);
+  }, [fetchAttendanceData, selectedState, startDate, endDate]);
 
   return (
     <div className="md:flex flex-wrap">
@@ -173,13 +178,22 @@ const AdminDashboard = () => {
                   <option key={state} value={state}>{state}</option>
                 ))}
               </select>
-              <DatePicker
-                selected={selectedDate}
-                onChange={handleDateChange}
-                dateFormat="yyyy-MM-dd"
-                className="p-2 border rounded w-full"
-                placeholderText="Select Date"
-              />
+              <div className="flex flex-col space-y-2">
+                <DatePicker
+                  selected={startDate}
+                  onChange={handleStartDateChange}
+                  dateFormat="yyyy-MM-dd"
+                  className="p-2 border rounded w-full"
+                  placeholderText="Select Start Date"
+                />
+                <DatePicker
+                  selected={endDate}
+                  onChange={handleEndDateChange}
+                  dateFormat="yyyy-MM-dd"
+                  className="p-2 border rounded w-full"
+                  placeholderText="Select End Date"
+                />
+              </div>
               <button
                 onClick={() => downloadExcel(attendanceData, 'attendance_data')}
                 className="bg-yellow-400 text-white px-4 py-2 rounded hover:bg-yellow-700 transition duration-300 w-full"

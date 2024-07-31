@@ -1,9 +1,8 @@
  
 import React from "react";
-import { FaHeart, FaHome, FaCamera, FaChartBar } from "react-icons/fa";
+import { FaHeart,  FaCalendarTimes, FaCheckCircle } from "react-icons/fa";
 import HorizentalGraphItem from "./HorizentalGraphItem";
 import { ImBriefcase } from "react-icons/im";
-import { HiClipboardList } from "react-icons/hi";
 
 const HorizentalGraph = () => {
   return (
@@ -12,7 +11,7 @@ const HorizentalGraph = () => {
       <div className="flex mb-3 md:mb-[25px]">
         <HorizentalGraphItem
           title="Holidays"
-          value="16"
+          value="17"
           color="bg-green-500"
           textColor="text-green-500"
           iconColor="bg-green-200"
@@ -25,7 +24,7 @@ const HorizentalGraph = () => {
           color="bg-gray-800"
           textColor="text-gray-800"
           iconColor="bg-blue-200"
-          icon={<HiClipboardList />}
+          icon={<FaCheckCircle />}
           width="100"
         />
       </div>
@@ -45,7 +44,7 @@ const HorizentalGraph = () => {
           color="bg-indigo-500"
           textColor="text-black-500"
           iconColor="bg-red-400"
-          icon={<FaChartBar />}
+          icon={<FaCalendarTimes />}
           width="100"
         />
       </div>
