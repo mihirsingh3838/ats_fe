@@ -159,13 +159,13 @@ const AdminDashboard = () => {
   }, [fetchAttendanceData, selectedState, startDate, endDate]);
 
   return (
-    <div className="md:flex flex-wrap">
-      <AdminSidebar className="w-full md:w-1/4" />
-      <div className="flex flex-col w-full md:w-3/4 p-4">
+    <div className="md:flex ">
+      <AdminSidebar  />
+      <div className="flex flex-col flex-grow p-4">
         <div className="mb-5 w-full">
           <AdminCards />
         </div>
-        <div className="flex flex-col md:flex-row md:mx-5 space-y-5 md:space-y-0 md:space-x-5">
+        <div className="flex flex-col md:flex-row md:mx-5 space-y-5 md:space-y-0 md:space-x-5 flex-grow">
           <div className="md:w-1/3 lg:w-2/3 w-full mb-2 space-y-4">
             <div className="flex flex-col space-y-4">
               <select
