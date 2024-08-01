@@ -48,6 +48,9 @@ const Camera = () => {
         webcamRef.current.video.srcObject.getTracks().forEach((track) => track.stop());
       }
 
+      // Close the camera component
+      setIsCameraOpen(false);
+
       // Navigate to home page
       toast.success("Attendance submitted successfully!");
       navigate("/");
