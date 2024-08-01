@@ -11,7 +11,7 @@ const HorizentalGraph = () => {
       <div className="flex mb-3 md:mb-[25px]">
         <HorizentalGraphItem
           title="Holidays"
-          value="17"
+          value="6"
           color="bg-green-500"
           textColor="text-green-500"
           iconColor="bg-green-200"
@@ -20,7 +20,7 @@ const HorizentalGraph = () => {
         />
         <HorizentalGraphItem
           title="Present"
-          value="160"
+          value="1"
           color="bg-gray-800"
           textColor="text-gray-800"
           iconColor="bg-blue-200"
@@ -31,7 +31,7 @@ const HorizentalGraph = () => {
       <div className="flex">
         <HorizentalGraphItem
           title="Work Days"
-          value="260"
+          value="25"
           color="bg-gray-400"
           textColor="text-gray-800"
           iconColor="bg-gray-200"
@@ -40,7 +40,7 @@ const HorizentalGraph = () => {
         />
         <HorizentalGraphItem
           title="Absent"
-          value="4"
+          value="0"
           color="bg-indigo-500"
           textColor="text-black-500"
           iconColor="bg-red-400"
