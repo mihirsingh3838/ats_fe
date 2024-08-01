@@ -58,6 +58,7 @@ const CalendarView = () => {
                 <p>Latitude: {attendance.location.lat}</p>
                 <p>Longitude: {attendance.location.lng}</p>
                 <p>Location: {locationNames[`${attendance.location.lat},${attendance.location.lng}`] || "Loading..."}</p>
+                <img src={attendance.image} alt="Attendance" className="mt-2 w-32 h-32 object-cover rounded" />
               </div>
             ))
           ) : (
