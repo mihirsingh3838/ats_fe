@@ -8,8 +8,7 @@ const CalendarView = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [attendanceData, setAttendanceData] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [locationNames, setLocationNames] = useState({});
-  const { fetchAttendanceByDate, getLocationName } = useAttendance();
+  const { fetchAttendanceByDate } = useAttendance();
 
   const handleDateClick = async (date) => {
     const formattedDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())).toISOString().split('T')[0];
@@ -19,18 +18,6 @@ const CalendarView = () => {
     setAttendanceData(data);
     setShowModal(true);
   };
-
-  useEffect(() => {
-    if (showModal && attendanceData.length > 0) {
-      attendanceData.forEach(async (attendance) => {
-        const locationKey = `${attendance.location.lat},${attendance.location.lng}`;
-        if (!locationNames[locationKey]) {
-          const locationName = await getLocationName(attendance.location.lat, attendance.location.lng);
-          setLocationNames((prev) => ({ ...prev, [locationKey]: locationName }));
-        }
-      });
-    }
-  }, [showModal, attendanceData]);
 
   const convertToIST = (timestamp) => {
     const date = new Date(timestamp);
@@ -57,7 +44,7 @@ const CalendarView = () => {
                 <p>Time: {convertToIST(attendance.timestamp)}</p>
                 <p>Latitude: {attendance.location.lat}</p>
                 <p>Longitude: {attendance.location.lng}</p>
-                <p>Location: {locationNames[`${attendance.location.lat},${attendance.location.lng}`] || "Loading..."}</p>
+                <p>Location: {attendance.locationName || "Loading..."}</p>
                 <img src={attendance.image} alt="Attendance" className="mt-2 w-32 h-32 object-cover rounded" />
               </div>
             ))
