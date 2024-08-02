@@ -6,7 +6,7 @@ const CardItem = (props) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="bg-gray-300 rounded-3xl p-5 mx-2  md:w-6/12">
+    <div className="bg-gray-300 rounded-3xl p-5 mx-2 md:w-6/12">
       <div className="flex items-center justify-between">
         <div className="mx-3 bg-gray-500 p-4 rounded-lg">
           <AiOutlineUser className="text-white" size={24} /> {/* Use the user icon */}
