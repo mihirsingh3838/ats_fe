@@ -36,9 +36,9 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="md:flex">
       <AdminSidebar />
-      <div className="flex-grow flex flex-col justify-center">
+      <div className="flex-grow flex flex-col justify-center py-20">
         <form
           className="signup max-w-md mx-auto p-6 bg-white shadow-md rounded-lg"
           onSubmit={handleSubmit}

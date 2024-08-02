@@ -8,7 +8,7 @@ const AdminCards = () => {
   ];
 
   return (
-    <div className="md:flex md:items-center md:justify-center p-2">
+    <div className="p-2 space-y-4 md:flex md:items-center md:justify-center md:space-y-0">
       {cardData.map((data, index) => (
         <CardItem
           key={index}
@@ -20,6 +20,5 @@ const AdminCards = () => {
     </div>
   );
 };
-
 
 export default AdminCards;
