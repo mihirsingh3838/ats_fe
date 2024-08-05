@@ -122,7 +122,7 @@ export const useAttendance = () => {
       const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GMAP_API_KEY}`);
       const data = await response.json();
 
-      console.log('API Response:', data); // Log the full response for debugging
+      // console.log('API Response:', data); 
 
       if (data.status !== 'OK') {
         throw new Error(`Geocoding API error: ${data.status}`);

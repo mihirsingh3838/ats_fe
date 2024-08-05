@@ -143,6 +143,7 @@ const AdminDashboard = () => {
       'Login details': convertToIST(att.timestamp),
       'Location Latitude': att.location.lat,
       'Location Longitude': att.location.lng,
+      'Location Name': att.locationName,
       'Reporting Manager': att.user.reportingManager
     })));
     const wb = XLSX.utils.book_new();
