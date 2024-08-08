@@ -8,6 +8,7 @@ const Camera = () => {
   const webcamRef = useRef(null);
   const [imageSrc, setImageSrc] = useState(null);
   const [location, setLocation] = useState({ lat: null, lng: null });
+  const [selectedOption, setSelectedOption] = useState(""); // New state for dropdown
   const { markAttendance, isLoading, error } = useAttendance();
   const navigate = useNavigate();
   const [isCameraOpen, setIsCameraOpen] = useState(true);
@@ -40,7 +41,7 @@ const Camera = () => {
   const handleSubmit = async () => {
     try {
       const userId = JSON.parse(localStorage.getItem("user"))._id;
-      await markAttendance(imageSrc, location, userId);
+      await markAttendance(imageSrc, location, userId, selectedOption); // Include selectedOption
 
       // Reset image source and turn off the camera
       setImageSrc(null);
@@ -96,12 +97,31 @@ const Camera = () => {
           <div className="ml-4">
             <h3>Captured Image:</h3>
             <img src={imageSrc} alt="Captured" className="mt-2 rounded-lg" />
+            
+            {/* Dropdown field */}
+            <label htmlFor="options" className="mt-4 block text-gray-700">Select the Purpose of Visit:</label>
+            <select
+              id="options"
+              value={selectedOption}
+              onChange={(e) => setSelectedOption(e.target.value)}
+              className="mt-2 p-2 border border-gray-300 rounded-lg"
+            >
+              <option value="" disabled>Select an option</option>
+              <option value="Option 1">Site Visit</option>
+              <option value="Option 2">BSNL Office Visit</option>
+              <option value="Option 3">BT Office Visit</option>
+              <option value="Option 4">New Site Survey</option>
+              <option value="Option 5">Official Tour - Out of Station</option>
+              <option value="Option 6">New Business Generation - Client Meeting</option>
+              <option value="Option 7">Others</option>
+            </select>
+
             <button
               onClick={handleSubmit}
               className={`bg-red-600 text-white p-2 rounded-lg mt-4 ${
                 isLoading && "opacity-50 cursor-not-allowed"
               }`}
-              disabled={isLoading}
+              disabled={isLoading || !selectedOption} // Disable if no option selected
             >
               {isLoading ? "Submitting..." : "Submit"}
             </button>
