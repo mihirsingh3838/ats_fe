@@ -8,18 +8,19 @@ export const useAttendance = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const markAttendance = async (imageSrc, location, userId) => {
+  const markAttendance = async (imageSrc, location, userId, purpose) => {
     setIsLoading(true);
     setError(null);
     toast.loading('Submitting attendance...');
-
+  
     const token = JSON.parse(localStorage.getItem('user')).token;
-
+  
     const formData = new FormData();
     formData.append('image', imageSrc);
     formData.append('location', JSON.stringify(location));
     formData.append('userId', userId);
-
+    formData.append('purpose', purpose); // Include the purpose in the form data
+  
     try {
       const response = await fetch(`${apiUrl}/api/attendance`, {
         method: 'POST',
@@ -28,9 +29,9 @@ export const useAttendance = () => {
         },
         body: formData,
       });
-
+  
       const json = await response.json();
-
+  
       if (!response.ok) {
         throw new Error(json.error);
       }
@@ -44,6 +45,7 @@ export const useAttendance = () => {
       setIsLoading(false);
     }
   };
+  
 
   const fetchAttendanceByDate = async (date) => {
     setIsLoading(true);

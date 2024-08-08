@@ -144,7 +144,9 @@ const AdminDashboard = () => {
       'Location Latitude': att.location.lat,
       'Location Longitude': att.location.lng,
       'Location Name': att.locationName,
-      'Reporting Manager': att.user.reportingManager
+      'Purpose': att.purpose,
+      'Reporting Manager': att.user.reportingManager,
+      
     })));
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Attendance Data');

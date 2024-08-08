@@ -107,11 +107,11 @@ const Camera = () => {
               className="mt-2 p-2 border border-gray-300 rounded-lg"
             >
               <option value="" disabled>Select an option</option>
-              <option value="Option 1">Site Visit</option>
-              <option value="Option 2">BSNL Office Visit</option>
-              <option value="Option 3">BT Office Visit</option>
-              <option value="Option 4">New Site Survey</option>
-              <option value="Option 5">Official Tour - Out of Station</option>
+              <option value="Site Visit">Site Visit</option>
+              <option value="BSNL Office Visit">BSNL Office Visit</option>
+              <option value="BT Office Visit">BT Office Visit</option>
+              <option value="New Site Survey">New Site Survey</option>
+              <option value="Official Tour - Out of Station">Official Tour - Out of Station</option>
               <option value="Option 6">New Business Generation - Client Meeting</option>
               <option value="Option 7">Others</option>
             </select>
