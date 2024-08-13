@@ -26,14 +26,14 @@ const Navbar = () => {
             {user ? (
               <button
                 onClick={handleClick}
-                className="bg-white text-green-500 border border-green-500 px-4 py-2 rounded hover:bg-green-600 hover:text-white transition duration-300"
+                className="bg-white text-indigo-600 border border-indigo-600 px-4 py-2 rounded hover:bg-indigo-600 hover:text-white transition duration-300"
               >
                 Log out
               </button>
             ) : (
               <Link
                 to="/login"
-                className="text-white bg-green-600 px-4 py-2 rounded hover:bg-green-700 transition duration-300"
+                className="text-white bg-indigo-600 px-4 py-2 rounded hover:bg-indigo-700 transition duration-300"
               >
                 Login
               </Link>
@@ -52,7 +52,7 @@ const Navbar = () => {
               <div className="hidden md:block">
                 <button
                   onClick={handleClick}
-                  className="bg-white text-green-500 border border-green-500 px-4 py-2 rounded hover:bg-green-600 hover:text-white transition duration-300"
+                  className="bg-white text-indigo-600 border border-indigo-600 px-4 py-2 rounded hover:bg-indigo-700 hover:text-white transition duration-300"
                 >
                   Log out
                 </button>
@@ -63,7 +63,7 @@ const Navbar = () => {
             <div className="hidden md:block">
               <Link
                 to="/login"
-                className="text-white bg-green-600 px-4 py-2 rounded hover:bg-green-700 transition duration-300"
+                className="text-white bg-indigo-600 px-4 py-2 rounded hover:bg-indigo-700 transition duration-300"
               >
                 Login
               </Link>

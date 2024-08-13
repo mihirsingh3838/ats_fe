@@ -199,7 +199,7 @@ const AdminDashboard = () => {
               </div>
               <button
                 onClick={() => downloadExcel(attendanceData, 'attendance_data')}
-                className="bg-yellow-400 text-white px-4 py-2 rounded hover:bg-yellow-700 transition duration-300 w-full"
+                className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition duration-300 w-full"
               >
                 Download State Data
               </button>
@@ -214,14 +214,14 @@ const AdminDashboard = () => {
               />
               <button
                 onClick={fetchUserData}
-                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition duration-300 w-full"
+                className="bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700 transition duration-300 w-full"
               >
                 Search User Data
               </button>
               {error && <div className="text-red-600">{error}</div>}
               <button
                 onClick={() => downloadExcel(userData, 'user_data')}
-                className="bg-yellow-400 text-white px-4 py-2 rounded hover:bg-yellow-500 transition duration-300 w-full"
+                className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition duration-300 w-full"
               >
                 Download User Data
               </button>

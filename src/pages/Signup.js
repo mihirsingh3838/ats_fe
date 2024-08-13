@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSignup } from "../hooks/useSignup";
 import AdminSidebar from "../components/admin/Sidebar_Admin";
+import worktrack from "../assets/worktrack.jpg";
 
 const statesAndUTs = [
   "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
@@ -40,9 +41,14 @@ const Signup = () => {
       <AdminSidebar />
       <div className="flex-grow flex flex-col justify-center py-20">
         <form
-          className="signup max-w-md mx-auto p-6 bg-white shadow-md rounded-lg"
+          className="signup max-w-md mx-auto p-2 bg-white shadow-md rounded-lg"
           onSubmit={handleSubmit}
         >
+          <img 
+          src={worktrack}
+          alt="Logo" 
+          className="mx-auto mb-2 w-50 h-50 pb-2 object-contain"
+        />
           <h3 className="text-2xl font-semibold mb-4 text-center">Sign Up</h3>
           <div className="flex flex-wrap -mx-2">
             <div className="w-full md:w-1/2 px-2 mb-4">
@@ -111,7 +117,7 @@ const Signup = () => {
           </div>
           <button
             disabled={isLoading}
-            className={`w-full p-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition duration-300 ${
+            className={`w-full p-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition duration-300 ${
               isLoading && "opacity-50 cursor-not-allowed"
             }`}
           >

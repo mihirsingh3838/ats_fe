@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLogin } from "../hooks/useLogin";
+import worktrack from "../assets/worktrack.jpg";
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -18,8 +19,13 @@ const Login = () => {
 
   return (
     <>
-      <form className="login max-w-md mx-auto mt-10 p-6 bg-white rounded-lg" onSubmit={handleSubmit}>
-        <h3 className="text-2xl font-semibold mb-4 text-center">Log In</h3>
+      <form className="login max-w-md mx-auto mt-6 p-4 bg-white rounded-lg" onSubmit={handleSubmit}>
+        <img 
+          src={worktrack}
+          alt="Logo" 
+          className="mx-auto mb-2 w-50 h-50 pb-2 object-contain"
+        />
+        <h3 className="text-2xl font-semibold mb-2 text-center">Log In</h3>
         
         <label className="block text-gray-700 mb-2">Email address:</label>
         <input 
@@ -48,7 +54,7 @@ const Login = () => {
         
         <button 
           disabled={isLoading}
-          className={`w-full p-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition duration-300 ${isLoading && 'opacity-50 cursor-not-allowed'}`}
+          className={`w-full p-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition duration-300 ${isLoading && 'opacity-50 cursor-not-allowed'}`}
         >
           Log in
         </button>
@@ -56,7 +62,7 @@ const Login = () => {
         <button
           type="button"
           onClick={handleForgotPassword}
-          className="w-full p-2 mt-4 text-green-500 text-center underline hover:text-green-700 transition duration-300"
+          className="w-full p-2 mt-4 text-indigo-600 text-center underline hover:text-indigo-700 transition duration-300"
         >
           Forgot Password?
         </button>
