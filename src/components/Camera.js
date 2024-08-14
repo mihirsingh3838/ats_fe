@@ -112,8 +112,12 @@ const Camera = () => {
               <option value="BT Office Visit">BT Office Visit</option>
               <option value="New Site Survey">New Site Survey</option>
               <option value="Official Tour - Out of Station">Official Tour - Out of Station</option>
-              <option value="Option 6">New Business Generation - Client Meeting</option>
-              <option value="Option 7">Others</option>
+              <option value="New Business Generation - Client Meeting">New Business Generation - Client Meeting</option>
+              <option value="Existing Client Meeting">Existing Client Meeting</option>
+              <option value="Check In">Check In</option>
+              <option value="Check Out">Check Out</option>
+              <option value="On Leave">On Leave</option>
+              <option value="Others">Others</option>
             </select>
 
             <button
