@@ -11,7 +11,7 @@ export const useAttendance = () => {
   const markAttendance = async (imageSrc, location, userId, purpose) => {
     setIsLoading(true);
     setError(null);
-    toast.loading('Submitting attendance...');
+    toast.loading('Submitting record...');
   
     const token = JSON.parse(localStorage.getItem('user')).token;
   
@@ -36,7 +36,7 @@ export const useAttendance = () => {
         throw new Error(json.error);
       }
       toast.dismiss();
-      toast.success('Attendance marked successfully!');
+      toast.success("You're in 👍");
     } catch (err) {
       setError(err.message);
       toast.dismiss();
@@ -50,7 +50,7 @@ export const useAttendance = () => {
   const fetchAttendanceByDate = async (date) => {
     setIsLoading(true);
     setError(null);
-    toast.loading('Fetching attendance...');
+    toast.loading('Fetching record...');
 
     const token = JSON.parse(localStorage.getItem('user')).token;
 
@@ -69,7 +69,7 @@ export const useAttendance = () => {
       }
 
       toast.dismiss();
-      toast.success('Attendance fetched successfully!');
+      toast.success('Details fetched successfully!');
       return json;
     } catch (err) {
       setError(err.message);
@@ -84,7 +84,7 @@ export const useAttendance = () => {
   const fetchAllAttendance = async () => {
     setIsLoading(true);
     setError(null);
-    toast.loading('Fetching all attendance...');
+    toast.loading('Fetching all details...');
 
     const token = JSON.parse(localStorage.getItem('user')).token;
 
@@ -103,7 +103,7 @@ export const useAttendance = () => {
       }
 
       toast.dismiss();
-      toast.success('All attendance fetched successfully!');
+      toast.success('All records fetched successfully!');
       return json.map(attendance => ({
         ...attendance,
         date: new Date(attendance.date).toISOString(),

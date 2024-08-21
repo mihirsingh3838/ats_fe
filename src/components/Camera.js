@@ -53,7 +53,7 @@ const Camera = () => {
       setIsCameraOpen(false);
 
       // Navigate to home page
-      toast.success("Attendance submitted successfully!");
+      // toast.success("Attendance submitted successfully!");
       navigate("/");
     } catch (error) {
       console.error("Error submitting attendance:", error);
