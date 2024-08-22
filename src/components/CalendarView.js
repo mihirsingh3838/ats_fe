@@ -50,11 +50,12 @@ const CalendarView = () => {
       <Modal
         showModal={showModal}
         setShowModal={setShowModal}
-        title={`Attendance for ${selectedDate}`}
+        title={`WorkTrack for ${selectedDate}`}
         desc={
           attendanceData.length > 0 ? (
             attendanceData.map((attendance) => (
               <div key={attendance._id} className="border p-2 mb-2">
+                <b>Purpose: {attendance.purpose}</b>
                 <p>Time: {convertToIST(attendance.timestamp)}</p>
                 <p>Latitude: {attendance.location.lat}</p>
                 <p>Longitude: {attendance.location.lng}</p>
@@ -64,7 +65,7 @@ const CalendarView = () => {
               </div>
             ))
           ) : (
-            <p>No attendance records for this date.</p>
+            <p>No worktrack for this date.</p>
           )
         }
       />

@@ -10,7 +10,7 @@ const statesAndUTs = [
   "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim",
   "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand",
   "West Bengal", "Andaman and Nicobar Islands", "Chandigarh", "Dadra and Nagar Haveli and Daman and Diu",
-  "Lakshadweep", "Delhi", "Puducherry"
+  "Lakshadweep", "Delhi", "Puducherry", "Denmark"
 ];
 
 const Signup = () => {
