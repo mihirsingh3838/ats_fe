@@ -8,7 +8,7 @@ export const useAttendance = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const markAttendance = async (imageSrc, location, userId, purpose) => {
+  const markAttendance = async (imageSrc, location, userId, purpose, feedback) => {
     setIsLoading(true);
     setError(null);
     toast.loading('Submitting record...');
@@ -19,7 +19,8 @@ export const useAttendance = () => {
     formData.append('image', imageSrc);
     formData.append('location', JSON.stringify(location));
     formData.append('userId', userId);
-    formData.append('purpose', purpose); // Include the purpose in the form data
+    formData.append('purpose', purpose); 
+    formData.append('feedback', feedback);
   
     try {
       const response = await fetch(`${apiUrl}/api/attendance`, {

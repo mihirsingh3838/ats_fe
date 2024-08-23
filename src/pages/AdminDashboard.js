@@ -145,6 +145,7 @@ const AdminDashboard = () => {
       'Location Longitude': att.location.lng,
       'Location Name': att.locationName,
       'Purpose': att.purpose,
+      'Feedback': att.feedback,
       'Reporting Manager': att.user.reportingManager,
       
     })));

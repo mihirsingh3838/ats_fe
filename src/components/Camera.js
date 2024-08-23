@@ -8,6 +8,7 @@ const Camera = () => {
   const webcamRef = useRef(null);
   const [imageSrc, setImageSrc] = useState(null);
   const [location, setLocation] = useState({ lat: null, lng: null });
+  const [feedback, setFeedback] = useState(""); 
   const [selectedOption, setSelectedOption] = useState(""); // New state for dropdown
   const { markAttendance, isLoading, error } = useAttendance();
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ const Camera = () => {
   const handleSubmit = async () => {
     try {
       const userId = JSON.parse(localStorage.getItem("user"))._id;
-      await markAttendance(imageSrc, location, userId, selectedOption); // Include selectedOption
+      await markAttendance(imageSrc, location, userId, selectedOption, feedback); // Include selectedOption
 
       // Reset image source and turn off the camera
       setImageSrc(null);
@@ -120,9 +121,22 @@ const Camera = () => {
               <option value="Others">Others</option>
             </select>
 
+            {/* Feedback text box */}
+            <label htmlFor="feedback" className="mt-4 block text-gray-700">Optional Feedback (max 50 characters):</label>
+            <input
+              type="text"
+              id="feedback"
+              value={feedback}
+              onChange={(e) => setFeedback(e.target.value.slice(0, 50))} // Limit to 50 characters
+              className="mt-2 p-2 border border-gray-300 rounded-lg"
+              placeholder="Enter feedback"
+            />
+
+            
+
             <button
               onClick={handleSubmit}
-              className={`bg-red-600 text-white p-2 rounded-lg mt-4 ${
+              className={`bg-red-600 text-white p-2 ml-2 rounded-lg mt-4 ${
                 isLoading && "opacity-50 cursor-not-allowed"
               }`}
               disabled={isLoading || !selectedOption} // Disable if no option selected

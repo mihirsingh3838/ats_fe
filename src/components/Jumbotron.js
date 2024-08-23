@@ -39,7 +39,7 @@ const Jumbotron = () => {
               </button>
             </div>
             <div className="mt-4">
-              <h2 className="text-lg font-bold">{user.fullName}</h2>
+              <h2 className="text-lg font-bold">{user.fullName}</h2>            
               <p className="text-sm text-gray-800">Email: {user.email}</p>
               <p className="text-sm text-gray-800">Phone: {user.phoneNumber}</p>
               <p className="text-sm text-gray-800">Reporting Manager: {user.reportingManager}</p>
