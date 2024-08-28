@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 
 const apiUrl = process.env.REACT_APP_API_URL || '';
-const GMAP_API_KEY = process.env.REACT_APP_GMAP_API_KEY;
 
 export const useAttendance = () => {
   const [error, setError] = useState(null);
@@ -120,28 +119,5 @@ export const useAttendance = () => {
     }
   };
 
-  const getLocationName = async (lat, lng) => {
-    try {
-      const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${GMAP_API_KEY}`);
-      const data = await response.json();
-
-      // console.log('API Response:', data); 
-
-      if (data.status !== 'OK') {
-        throw new Error(`Geocoding API error: ${data.status}`);
-      }
-
-      if (data.results.length > 0) {
-        return data.results[0].formatted_address;
-      } else {
-        throw new Error("No results found");
-      }
-    } catch (error) {
-      setError(error.message);
-      toast.error(`Error: ${error.message}`);
-      return "Unknown location";
-    }
-  };
-
-  return { markAttendance, fetchAttendanceByDate, fetchAllAttendance, isLoading, getLocationName, error };
+  return { markAttendance, fetchAttendanceByDate, fetchAllAttendance, isLoading, error };
 };
